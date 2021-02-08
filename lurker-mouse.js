@@ -1,5 +1,7 @@
+const parser = require('./parser');
 const Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
+const { token } = require('./config.json');
+const { addMouseToDatabase } = require('./parser');
 
 const client = new Discord.Client();
 
@@ -14,9 +16,8 @@ client.on('message', message => {
 
         let args = message.content.split(/\r?\n/g);
         for (let i = 0; i < args.length; i++) {
-            console.log(args[i].toLowerCase());
+            parser.addMouseToDatabase(args[i].toLowerCase());
         }
-    
     }
 });
 
