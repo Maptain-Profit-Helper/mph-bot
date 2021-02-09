@@ -14,10 +14,10 @@ client.on('message', message => {
         if (message.author.bot) return; // ignore bots
         // console.log(message.author.username + ": " + message.content);
 
-        let args = message.content.split(/\r?\n/g);
-        console.log(args);
-        for (let i = 0; i < args.length; i++) {
-            parser.addMouseToDatabase(args[i].toLowerCase());
+        let lines = message.content.split(/\r?\n/);
+        console.log(lines);
+        for (let i = 0; i < lines.length; i++) {
+            parser.addMouseToDatabase(lines[i].toLowerCase());
         }
     }
 });
