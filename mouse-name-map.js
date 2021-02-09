@@ -581,7 +581,7 @@ Queso Canyon
 	["mild spicekin", "Mild Spicekin"], // Geyser
 	["sizzle pup", "Sizzle Pup"], ["sizzle", "Sizzle Pup"],
 	["smoldersnap", "Smoldersnap"],
-	["bearded elder", "Bearded Elder"],
+	["bearded elder", "Bearded Elder"], ["bearded", "Bearded Elder"], 
 	["ignatia", "Ignatia"],
 	["cinderstorm", "Cinderstorm"], ["cinder", "Cinderstorm"],
 	["bruticus, the blazing", "Bruticus, the Blazing"], ["bruticus", "Bruticus, the Blazing"], ["brut", "Bruticus, the Blazing"],
