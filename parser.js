@@ -2,7 +2,7 @@ const mouseNameMap = require('./mouse-name-map');
 const miceNames = mouseNameMap.Map;
 
 module.exports = {
-    addMouseToDatabase: function(line) {
+    addMouseToDatabase: function (line) {
         parseLine(line);
     }
 }
@@ -15,14 +15,13 @@ function parseLine(line) {
         while (canSkipWord(words[i])) i++; // if it's the typical starter words, skip
         if (miceNames.has(words[i])) { // if it's in the map
             Mouse.name = miceNames.get(words[i++]); // insert the value as the name
-            while (i < words.length) { // 
-                if (!isNaN(words[i])) {
-                    Mouse.price = words[i];
-                    break;
-                }
+            if (!isNaN(words[i])) { // if the word is a number
+                Mouse.price = words[i]; // set the price
             }
         }
+        console.log(Mouse);
     }
+
 
     // insert to db
 }

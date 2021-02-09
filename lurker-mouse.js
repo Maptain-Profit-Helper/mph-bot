@@ -15,6 +15,7 @@ client.on('message', message => {
         // console.log(message.author.username + ": " + message.content);
 
         let args = message.content.split(/\r?\n/g);
+        console.log(args);
         for (let i = 0; i < args.length; i++) {
             parser.addMouseToDatabase(args[i].toLowerCase());
         }
