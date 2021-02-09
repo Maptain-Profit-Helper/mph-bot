@@ -18,28 +18,36 @@ module.exports = {
  * to send to the database.
  */
 function parseLine(line) {
-    let words = line.split(/ +/); // split line into words
+    let words = line.split(/ +/);
+    let word = "";
 
-    for (let i = 0; i < words.length; i++) { // do each word
-        let names = [ "" ];
+    for (let i = 0; i < words.length; i++) {
         let mouse = { name: "", price: 0 };
+        
+        while (canSkipWord(words[i])) i++;
 
-        while (canSkipWord(words[i])) i++; // if it's the typical starter words, skip
-        if (miceNames.has(words[i])) { // if it's in the map
-            mouse.name = miceNames.get(words[i++]); // insert the value as the name
-            // if (!isNaN(words[i])) { // if the word is a number
-            if (!isNaN(words[i].match(/\d+/g))) {
+        word.localeCompare("") == 0 ? word += words[i] : word += " " + words[i];
+
+        if (miceNames.has(word)) {
+            mouse.name = miceNames.get(word); // insert the value as the name
+            i++;
+            if (words[i].localeCompare("-") == 0) i++; // skips "-"
+            if (!isNaN(words[i].match(/\d+/g))) { // if the next value is a number or contains a number
                 mouse.price = parseInt(words[i].match(/\d+/g), 10); // set the price
             }
         }
+
         console.log(mouse);
-        // insert to db
-        if (mouse.name != "" && mouse.price != 0 && !isNaN(mouse.price)) {
+        if (verifyMouse(mouse)) {
             sendToDatabase(mouse);
         }
     }
 }
 
+/**
+ * Sends a fetch request to the server as a put request.
+ * @param mouse The mouse being sent to the server.
+ */
 async function sendToDatabase(mouse) {
     await fetch(URL + "mouse", {
         method: "PUT",
@@ -50,7 +58,15 @@ async function sendToDatabase(mouse) {
     });
 }
 
-
+/**
+ * Verifies if mouse is a valid object to send to the server. 
+ * Requires a non-empty string, price greater than zero, and price that is valid number.
+ * @param mouse The mouse object being verified.
+ */
+function verifyMouse(mouse) {
+    if (mouse.name != "" && mouse.price > 0 && !isNaN(mouse.price)) return true;
+    else return false;
+}
 
 /**
  * Checks for common words to skip.
